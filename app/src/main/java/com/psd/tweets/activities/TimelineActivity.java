@@ -1,13 +1,17 @@
 package com.psd.tweets.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.psd.tweets.EndlessRecyclerViewScrollListener;
 import com.psd.tweets.R;
 import com.psd.tweets.TwitterApplication;
 import com.psd.tweets.TwitterClient;
@@ -22,10 +26,12 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
+    private ImageButton ibCompose;
+    private RecyclerView rvTweets;
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
     private TweetAdapter tweetAdapter;
-    private RecyclerView rvTweets;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,36 +39,64 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        ibCompose = (ImageButton) findViewById(R.id.ibCompose);
         // find RecyclerView
         rvTweets = (RecyclerView) findViewById(R.id.rvTweets);
         // create ArrayList
         tweets = new ArrayList<>();
         // construct adapter from data source
         tweetAdapter = new TweetAdapter(this, tweets);
+        // get Layout Manager
+        final LinearLayoutManager llm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         // connect adapter to RecyclerView
-        rvTweets.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        rvTweets.setLayoutManager(llm);
         rvTweets.setHasFixedSize(true);
         rvTweets.setAdapter(tweetAdapter);
-
         // retrieve client from TwitterApplication (will be used for every activity)
         client = TwitterApplication.getRestClient(); //singleton client
-
         populateTimeline();
+
+        rvTweets.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                loadMoreTweets(page);
+            }
+        });
+        ibCompose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(TimelineActivity.this, ComposeTweetActivity.class);
+                startActivityForResult(i, 1);
+            }
+        });
     }
 
     // send an API request to get the timeline json
-    // fill recyclerview by creating the tweet objects from the json
+    // fill RecyclerView by creating the tweet objects from the json
     private void populateTimeline() {
-        client.getTweetsTimeline(new JsonHttpResponseHandler() {
+        client.getHomeTimeline(new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                Log.d("DEBUG", json.toString());
+                tweets.clear();
+                tweets.addAll(Tweet.fromJSONArray(json));
+                tweetAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.e("ERROR", "code: " + statusCode);
+            }
+        });
+    }
+
+    private void loadMoreTweets(int page) {
+        client.getHomeTimeline(page, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
                 Log.d("DEBUG", json.toString());
                 tweets.addAll(Tweet.fromJSONArray(json));
-                tweetAdapter.notifyDataSetChanged();
-
+                tweetAdapter.notifyItemRangeInserted(tweetAdapter.getItemCount(), tweets.size() - 1);
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.e("ERROR", errorResponse.toString());
