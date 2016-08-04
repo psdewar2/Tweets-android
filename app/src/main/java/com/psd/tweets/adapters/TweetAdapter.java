@@ -3,7 +3,6 @@ package com.psd.tweets.adapters;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,10 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     public static class TweetViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.profilePictureImageView) ImageView profilePicture;
         @BindView(R.id.tvUserName) TextView tvUserName;
+        @BindView(R.id.tvUserScreenName) TextView tvUserScreenName;
+        @BindView(R.id.tvTweetTimestamp) TextView tvTweetTimestamp;
         @BindView(R.id.tvTweetBody) TextView tvTweetBody;
+
         public TweetViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -101,11 +103,13 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 TweetViewHolder tVH = (TweetViewHolder) holder;
                 tVH.profilePicture.setImageResource(0);
                 tVH.tvUserName.setText(tweet.getUser().getName());
+                String tvUSN = "@" + tweet.getUser().getScreenName();
+                tVH.tvUserScreenName.setText(tvUSN);
                 tVH.tvTweetBody.setText(tweet.getBody());
+                tVH.tvTweetTimestamp.setText(tweet.getCreatedAt());
 
                 //populate thumbnail by remotely downloading image
                 String profileImageUrl = tweet.getUser().getProfileImageUrl();
-                Log.d("profile image url", profileImageUrl);
                 if (!TextUtils.isEmpty(profileImageUrl)) {
                     Picasso.with(getContext()).load(profileImageUrl).into(tVH.profilePicture);
                 }

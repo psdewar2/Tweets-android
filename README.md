@@ -10,7 +10,7 @@ Completed user stories:
 
  * [x] Required: Users can sign in to Twitter using OAuth login.
  * [x] Required: Each tweet should display the username, name, and its body.
- * [] Required: Each tweet should display its relative timestamp.
+ * [x] Required: Each tweet should display its relative timestamp.
  * [] Required: Users can view more tweets as they scroll with infinite pagination.
  * [] Required: Users can click a “Compose” icon in the Action Bar on the top right.
  * [] Required: Users can enter a new tweet and post it to twitter.
