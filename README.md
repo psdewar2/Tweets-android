@@ -11,10 +11,10 @@ Completed user stories:
  * [x] Required: Users can sign in to Twitter using OAuth login.
  * [x] Required: Each tweet should display the username, name, and its body.
  * [x] Required: Each tweet should display its relative timestamp.
- * [] Required: Users can view more tweets as they scroll with infinite pagination.
- * [] Required: Users can click a “Compose” icon in the Action Bar on the top right.
- * [] Required: Users can enter a new tweet and post it to twitter.
- * [] Required: Users are taken back to home timeline with new tweet visible in timeline. 
+ * [x] Required: Users can view more tweets as they scroll with infinite pagination.
+ * [x] Required: Users can click a “Compose” icon in the Action Bar on the top right.
+ * [x] Required: Users can enter a new tweet and post it to twitter.
+ * [x] Required: Users are taken back to home timeline with new tweet visible in timeline. 
  * [] Optional: While composing a tweet, users can see a character counter with characters remaining for tweets out of 140.
  * [] Optional: Links in tweets are clickable and can launch the web browser.
  * [] Optional: Users can refresh timeline by pulling down to refresh.
@@ -25,7 +25,7 @@ Completed user stories:
  * [] Stretch: Users can see embedded image media within the tweet detail view.
  * [] Stretch: Users can watch a tweet's embedded video.
  * [] Stretch: ComposeActivity is replaced with a modal overlay.
- * [] Stretch: Parceler is used to make Article objects parcelable instead of serializable.
+ * [x] Stretch: Parceler is used to make Tweet objects parcelable instead of serializable.
  * [] Stretch: ButterKnife annotation library is applied to reduce view boilerplate.
  * [x] Stretch: RecyclerView is leveraged as a replacement for the ListView and ArrayAdapter for all lists of tweets.
  * [] Stretch: "Compose" action is moved to a FloatingActionButton instead of on the AppBar.

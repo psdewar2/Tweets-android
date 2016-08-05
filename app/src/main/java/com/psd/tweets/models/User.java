@@ -2,10 +2,12 @@ package com.psd.tweets.models;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 /**
  * Created by PSD on 8/1/16.
  */
+@Parcel
 public class User {
 
     private String name;
@@ -29,6 +31,8 @@ public class User {
         return profileImageUrl;
     }
 
+    public User() {}
+
     public User(JSONObject jsonObject) {
         try {
             this.name = jsonObject.getString("name");
@@ -38,6 +42,10 @@ public class User {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static User fromJSONObject(JSONObject json) {
+        return new User(json);
     }
 
 }

@@ -5,6 +5,7 @@ import android.text.format.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,6 +15,7 @@ import java.util.Locale;
 /**
  * Created by PSD on 8/1/16.
  */
+@Parcel
 public class Tweet {
     // 1. Parse JSON + store data
     // 2. Encapsulate state logic or display logic
@@ -39,6 +41,16 @@ public class Tweet {
         return user;
     }
 
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Tweet() {}
+
     // Constructor that deserializes the JSON to create Tweet objects
     public Tweet(JSONObject jsonObject) {
         try {
@@ -49,6 +61,10 @@ public class Tweet {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Tweet fromJSON(JSONObject json) {
+        return new Tweet(json);
     }
 
     // pass in a JSONArray of items and convert into an ArrayList of Tweets

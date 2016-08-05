@@ -44,7 +44,8 @@
             android:name=".activities.TimelineActivity"
             android:label="@string/title_activity_timeline"
             android:theme="@style/AppTheme" />
-        <activity android:name=".activities.ComposeTweetActivity"></activity>
+        <activity android:name=".activities.ComposeActivity"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
