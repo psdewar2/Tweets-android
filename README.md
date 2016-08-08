@@ -4,7 +4,7 @@ Tweets is a Twitter OAuth application for Android.
 
 Submitted by: Peyt S. Dewar II
 
-Time spent:
+Time spent: 15 hours total
 
 Completed user stories:
 
@@ -15,7 +15,7 @@ Completed user stories:
  * [x] Required: Users can click a “Compose” icon in the Action Bar on the top right.
  * [x] Required: Users can enter a new tweet and post it to twitter.
  * [x] Required: Users are taken back to home timeline with new tweet visible in timeline. 
- * [] Optional: While composing a tweet, users can see a character counter with characters remaining for tweets out of 140.
+ * [x] Optional: While composing a tweet, users can see a character counter with characters remaining for tweets out of 140.
  * [] Optional: Links in tweets are clickable and can launch the web browser.
  * [] Optional: Users can refresh timeline by pulling down to refresh.
  * [] Optional: Tweets are persisted into SQLite and can be displayed from the local DB, enabling the user to open the app offline to see the last loaded tweets.
@@ -35,12 +35,12 @@ Completed user stories:
  
 ## Video Walkthrough 
 
-![Video Walkthrough] (___.gif)
+![Video Walkthrough] (weekthreeDemo.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
-
+Spent some time working on the Tweet button and character count to look identical to Twitter's.
 
 ## License
 
