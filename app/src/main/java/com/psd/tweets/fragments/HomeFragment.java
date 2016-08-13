@@ -36,6 +36,7 @@ public class HomeFragment extends Fragment {
         HomeFragment homeFragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt("tab", tab);
+        args.putString("title", title);
         homeFragment.setArguments(args);
         return homeFragment;
     }
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment {
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.e("ERROR", errorResponse.toString());
+                Log.e("ERROR", "code: " + statusCode);
             }
         });
     }

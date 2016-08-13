@@ -17,9 +17,9 @@ import com.psd.tweets.fragments.HomeFragment;
 import com.psd.tweets.fragments.MentionsFragment;
 
 public class TimelineActivity extends AppCompatActivity {
-    FragmentPagerAdapter adapterViewPager;
+    TabLayout tabLayout;
+    TweetsFragmentPagerAdapter adapterViewPager;
     ViewPager viewPager;
-
     private ImageButton ibCompose;
 
     private static int COMPOSE_ACTIVITY_REQUEST = 1;
@@ -30,14 +30,13 @@ public class TimelineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_timeline);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Home"));
-        tabLayout.addTab(tabLayout.newTab().setText("Mentions"));
-
+        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         adapterViewPager = new TweetsFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
+        // Give the TabLayout the ViewPager
+
+        tabLayout.setupWithViewPager(viewPager);
         ibCompose = (ImageButton) findViewById(R.id.ibCompose);
         ibCompose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +79,7 @@ public class TimelineActivity extends AppCompatActivity {
     // PAGERADAPTER CLASS
     public static class TweetsFragmentPagerAdapter extends FragmentPagerAdapter {
         private static int NUM_ITEMS = 2;
+        private String tabTitles[] = new String[] { "Home", "Mentions"};
 
         public TweetsFragmentPagerAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -104,7 +104,7 @@ public class TimelineActivity extends AppCompatActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Page " + position;
+            return tabTitles[position];
         }
 
     }

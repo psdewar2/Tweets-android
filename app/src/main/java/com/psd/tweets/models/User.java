@@ -10,10 +10,21 @@ import org.parceler.Parcel;
 @Parcel
 public class User {
 
+    //picture, tagline, # of followers, # of following, and tweets on their profile
+
+    private String description;
+    private int followersCount; // followers
+    private int friendsCount; // following
     private String name;
     private long uid;
     private String screenName;
     private String profileImageUrl;
+
+    public String getDescription() { return description; }
+
+    public int getFollowersCount() { return followersCount; }
+
+    public int getFriendsCount() { return friendsCount; }
 
     public String getName() {
         return name;
@@ -35,6 +46,9 @@ public class User {
 
     public User(JSONObject jsonObject) {
         try {
+            this.description = jsonObject.getString("description");
+            this.followersCount = jsonObject.getInt("followers_count");
+            this.friendsCount = jsonObject.getInt("friends_count");
             this.name = jsonObject.getString("name");
             this.uid = jsonObject.getLong("id");
             this.screenName = jsonObject.getString("screen_name");

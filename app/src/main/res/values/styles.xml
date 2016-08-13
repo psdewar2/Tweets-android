@@ -6,6 +6,7 @@
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
         -->
+
     </style>
 
     <!-- Application theme. -->
@@ -13,7 +14,25 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
         <item name="windowNoTitle">true</item>
         <item name="android:textColorPrimary">#FFF</item>
+        <item name="android:textViewStyle">@style/TweetsTextView</item>
 
+    </style>
+
+    <style name="CustomTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabIndicatorColor">#1DA1F2</item>
+        <item name="tabSelectedTextColor">#1DA1F2</item>
+        <!--<item name="android:textColor">#1DA1F2</item>-->
+        <item name="android:background">#FFFFFF</item>
+    </style>
+
+    <style name="MyCustomTabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#000</item>
+        <item name="textAllCaps">true</item>
+    </style>
+
+    <style name="TweetsTextView" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
 </resources>

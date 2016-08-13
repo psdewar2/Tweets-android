@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.psd.tweets.activities.TimelineActivity">
 
     <android.support.v7.widget.Toolbar
@@ -28,15 +27,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
-        android:elevation="6dp"
-        app:tabMode="scrollable" />
+        style="@style/CustomTabLayout"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/sliding_tabs">
-        <!--android:background="@android:color/white">-->
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sliding_tabs"
+        android:background="@android:color/white">
 
         <!--<android.support.v4.view.PagerTabStrip-->
             <!--android:id="@+id/pager_header"-->
