@@ -60,6 +60,12 @@ public class TwitterClient extends OAuthBaseClient {
         getClient().get(apiUrl, null, handler);
     }
 
+    // MentionsTimeline returns the 20 most recent mentions for the authenticating user
+    public void getMentionsTimeline(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/mentions_timeline.json");
+        getClient().get(apiUrl, null, handler);
+    }
+
 	// COMPOSE TWEET
     public void composeNewTweet(String tweet, AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/update.json");
