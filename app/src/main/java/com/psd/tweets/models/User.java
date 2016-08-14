@@ -9,6 +9,7 @@ import org.parceler.Parcel;
  */
 @Parcel
 public class User {
+    public static User currentUser; //to be used later
 
     //picture, tagline, # of followers, # of following, and tweets on their profile
 
@@ -53,6 +54,7 @@ public class User {
             this.uid = jsonObject.getLong("id");
             this.screenName = jsonObject.getString("screen_name");
             this.profileImageUrl = jsonObject.getString("profile_image_url");
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

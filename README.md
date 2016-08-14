@@ -4,7 +4,7 @@ Tweets is a Twitter OAuth application for Android.
 
 Submitted by: Peyt S. Dewar II
 
-Time spent: 20 hours total
+Time spent: 25 hours total
 
 Week 4 completed user stories:
 
@@ -13,11 +13,11 @@ The following **required** functionality is completed:
 * [x] User can **switch between Timeline and Mention views using tabs**
   * [x] User can view their home timeline tweets.
   * [x] User can view the recent mentions of their username.
-* [ ] User can navigate to **view their own profile**
-  * [ ] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
-* [ ] User can **click on the profile image** in any tweet to see **another user's** profile.
- * [ ] User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
- * [ ] Profile view includes that user's timeline
+* [x] User can navigate to **view their own profile**
+  * [x] User can see picture, tagline, # of followers, # of following, and tweets on their profile.
+* [x] User can **click on the profile image** in any tweet to see **another user's** profile.
+ * [x] User can see picture, tagline, # of followers, # of following, and tweets of clicked user.
+ * [x] Profile view includes that user's timeline
 * [ ] User can [infinitely paginate](http://guides.codepath.com/android/Endless-Scrolling-with-AdapterViews-and-RecyclerView) any of these timelines (home, mentions, user) by scrolling to the bottom.
 
 The following **optional** features are implemented:
@@ -33,8 +33,8 @@ The following **optional** features are implemented:
 * [ ] Usernames and hashtags are styled and clickable within tweets [using clickable spans](http://guides.codepath.com/android/Working-with-the-TextView#creating-clickable-styled-spans)
 
 The following **bonus** features are implemented:
-* [ ] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
-* [ ] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
+* [x] Use Parcelable instead of Serializable using the popular [Parceler library](http://guides.codepath.com/android/Using-Parceler).
+* [x] Leverages the [data binding support module](http://guides.codepath.com/android/Applying-Data-Binding-for-Views) to bind data into layout templates.
 * [ ] Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce view boilerplate.
 * [ ] User can view their direct messages (or send new ones)
 
@@ -53,17 +53,17 @@ Week 3 completed user stories:
  * [] Optional: Tweets are persisted into SQLite and can be displayed from the local DB, enabling the user to open the app offline to see the last loaded tweets.
  * [] Optional: Users can tap a tweet to display a detailed view of the tweet.
  * [] Optional: Users can select "reply" from the detail view to respond to a tweet.
- * [] Optional: UI and theme is improved to feel "Twitter branded".
+ * [x] Optional: UI and theme is improved to feel "Twitter branded".
  * [] Stretch: Users can see embedded image media within the tweet detail view.
  * [] Stretch: Users can watch a tweet's embedded video.
  * [] Stretch: ComposeActivity is replaced with a modal overlay.
  * [x] Stretch: Parceler is used to make Tweet objects parcelable instead of serializable.
  * [] Stretch: ButterKnife annotation library is applied to reduce view boilerplate.
  * [x] Stretch: RecyclerView is leveraged as a replacement for the ListView and ArrayAdapter for all lists of tweets.
- * [] Stretch: "Compose" action is moved to a FloatingActionButton instead of on the AppBar.
+ * [x] Stretch: "Compose" action is moved to a FloatingActionButton instead of on the AppBar.
  * [] Stretch: All icon drawables and other static image assets are replaced with vector drawables where appropriate.
- * [] Stretch: Data binding support module is leveraged to bind data into one or more activity layout templates.
- * [] Stretch: Picasso is replaced with Glide for more efficient image rendering.
+ * [x] Stretch: Data binding support module is leveraged to bind data into one or more activity layout templates.
+ * [x] Stretch: Picasso is replaced with Glide for more efficient image rendering.
  
 ## Video Walkthrough 
 

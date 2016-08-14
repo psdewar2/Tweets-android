@@ -5,6 +5,7 @@ import android.content.Context;
 import com.codepath.oauth.OAuthBaseClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.psd.tweets.models.User;
 
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.TwitterApi;
@@ -64,6 +65,30 @@ public class TwitterClient extends OAuthBaseClient {
     public void getMentionsTimeline(AsyncHttpResponseHandler handler) {
         String apiUrl = getApiUrl("statuses/mentions_timeline.json");
         getClient().get(apiUrl, null, handler);
+    }
+
+    // UserTimeline returns the 20 most recent mentions for the authenticating user
+    public void getUserTimeline(AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        getClient().get(apiUrl, null, handler);
+    }
+
+    public void getUserTimeline(RequestParams params, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("statuses/user_timeline.json");
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void getUser(String screenName, AsyncHttpResponseHandler handler) {
+        String apiUrl = getApiUrl("users/show.json");
+        RequestParams params = new RequestParams();
+        params.put("screen_name", screenName);
+        getClient().get(apiUrl, params, handler);
+    }
+
+    public void showSelectedUserTimeline(User user, AsyncHttpResponseHandler handler) {
+        RequestParams params = new RequestParams();
+        params.put("screen_name", user.getScreenName());
+        getUserTimeline(params, handler);
     }
 
 	// COMPOSE TWEET

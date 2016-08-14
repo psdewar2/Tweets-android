@@ -1,6 +1,7 @@
 package com.psd.tweets.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,14 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.psd.tweets.R;
+import com.psd.tweets.activities.ProfileActivity;
 import com.psd.tweets.models.Tweet;
-import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by PSD on 8/1/16.
@@ -97,7 +102,7 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     //updates the RecyclerView.ViewHolder contents with the item at the given position
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Tweet tweet = tweetList.get(position);
+        final Tweet tweet = tweetList.get(position);
         switch (holder.getItemViewType()) {
             default:
                 TweetViewHolder tVH = (TweetViewHolder) holder;
@@ -111,8 +116,21 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 //populate thumbnail by remotely downloading image
                 String profileImageUrl = tweet.getUser().getProfileImageUrl();
                 if (!TextUtils.isEmpty(profileImageUrl)) {
-                    Picasso.with(getContext()).load(profileImageUrl).into(tVH.profilePicture);
+                    Glide.with(getContext()).load(profileImageUrl.replace("_normal", "_bigger"))
+                            .bitmapTransform(new RoundedCornersTransformation(getContext(), 5, 0))
+                            .into(tVH.profilePicture);
+                } else {
+                    //add default picture
                 }
+                tVH.profilePicture.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent i = new Intent(getContext(), ProfileActivity.class);
+                        i.putExtra("currentUser", false);
+                        i.putExtra("user", Parcels.wrap(tweet.getUser()));
+                        getContext().startActivity(i);
+                    }
+                });
                 break;
         }
     }

@@ -13,7 +13,8 @@
         android:layout_height="60dp"
         tools:src="@drawable/ic_launcher"
         android:layout_marginLeft="8dp"
-        android:layout_alignWithParentIfMissing="true" />
+        android:layout_alignWithParentIfMissing="true"
+        android:clickable="true"/>
 
     <TextView
         android:id="@+id/tvUserName"
