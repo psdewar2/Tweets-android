@@ -17,7 +17,7 @@
             android:layout_height="60dp"
             android:paddingLeft="8dp"
             android:paddingTop="8dp"
-            android:src="@drawable/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tvUserName"
@@ -62,6 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/following"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_alignBaseline="@id/tvFollowingValue"
                 android:layout_marginLeft="4dp"
                 android:layout_toRightOf="@id/tvFollowingValue" />
@@ -83,6 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/followers"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:layout_alignBaseline="@+id/tvFollowing"
                 android:layout_marginLeft="4dp"
                 android:layout_toRightOf="@id/tvFollowersValue" />

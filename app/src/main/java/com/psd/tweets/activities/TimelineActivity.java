@@ -29,16 +29,19 @@ import com.psd.tweets.models.User;
 import org.json.JSONObject;
 import org.parceler.Parcels;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class TimelineActivity extends AppCompatActivity {
-    ActionBarDrawerToggle actionBarDrawerToggle;
-    DrawerLayout mDrawerLayout;
-    private NavigationView nvDrawer;
-    TabLayout tabLayout;
+    @BindView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.sliding_tabs) TabLayout tabLayout;
+    @BindView(R.id.viewpager) ViewPager viewPager;
+    @BindView(R.id.nvView) NavigationView nvDrawer;
+    @BindView(R.id.fab) FloatingActionButton floatingActionButton;
     TweetsFragmentPagerAdapter adapterViewPager;
-    ViewPager viewPager;
-    private FloatingActionButton floatingActionButton;
+    ActionBarDrawerToggle actionBarDrawerToggle;
 
     User currentUser;
 
@@ -48,25 +51,37 @@ public class TimelineActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ButterKnife.bind(this);
         setSupportActionBar(toolbar);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        nvDrawer = (NavigationView) findViewById(R.id.nvView);
-        tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
 
-        //setSupportActionBar(toolbar);
         actionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,toolbar,R.string.app_name,R.string.app_name);
         mDrawerLayout.addDrawerListener(actionBarDrawerToggle);
 
         setupDrawerContent(nvDrawer);
-        nvDrawer.getMenu().getItem(0).setTitle("My Profile");
+
         adapterViewPager = new TweetsFragmentPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
         // Give the TabLayout the ViewPager
-
         tabLayout.setupWithViewPager(viewPager);
+
+        // listeners
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                String tabTitles[] = {"Home", "Mentions"};
+                toolbar.setTitle(tabTitles[position]);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +93,7 @@ public class TimelineActivity extends AppCompatActivity {
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
+        nvDrawer.getMenu().getItem(0).setTitle("My Profile");
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
