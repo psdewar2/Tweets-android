@@ -67,12 +67,14 @@ Week 3 completed user stories:
  
 ## Video Walkthrough 
 
-![Video Walkthrough] (weekthreeDemo.gif)
+![Video Walkthrough] (weekfourDemo.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
-Spent some time working on the Tweet button and character count to look identical to Twitter's.
+Week 4: Spent some time working with nested fragments in order for them to communicate with their parent activities.
+
+Week 3: Spent some time working on the Tweet button and character count to look identical to Twitter's.
 
 ## License
 
