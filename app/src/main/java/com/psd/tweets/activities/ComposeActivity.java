@@ -46,6 +46,8 @@ public class ComposeActivity extends AppCompatActivity {
         etNewTweet.requestFocus();
         tvCharCount.setText(String.valueOf(140));
         final int charCountColor = tvCharCount.getCurrentTextColor();
+        btnSendTweet.setEnabled(false);
+        btnSendTweet.setBackgroundColor(Color.GRAY);
         etNewTweet.addTextChangedListener(new TextWatcher()
         {
             @Override
@@ -66,7 +68,7 @@ public class ComposeActivity extends AppCompatActivity {
                 } else {
                     tvCharCount.setTextColor(charCountColor);
                 }
-                if (charsRemaining < 0) {
+                if (charsRemaining < 0 || charsRemaining >= 140) {
                     btnSendTweet.setEnabled(false);
                     btnSendTweet.setBackgroundColor(Color.GRAY);
                 } else {

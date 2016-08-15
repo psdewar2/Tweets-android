@@ -1,6 +1,8 @@
 package com.psd.tweets.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,11 +16,14 @@ import com.psd.tweets.EndlessRecyclerViewScrollListener;
 import com.psd.tweets.R;
 import com.psd.tweets.TwitterApplication;
 import com.psd.tweets.TwitterClient;
+import com.psd.tweets.activities.ComposeActivity;
 import com.psd.tweets.adapters.TweetAdapter;
 import com.psd.tweets.models.Tweet;
+import com.psd.tweets.models.User;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -28,9 +33,11 @@ import cz.msebera.android.httpclient.Header;
  * Created by PSD on 8/12/16.
  */
 public class HomeFragment extends Fragment {
+    FloatingActionButton floatingActionButton;
     private TwitterClient client;
     private ArrayList<Tweet> tweets;
     private TweetAdapter tweetAdapter;
+    RecyclerView rvTweets;
 
     public static HomeFragment newInstance(int tab, String title) {
         HomeFragment homeFragment = new HomeFragment();
@@ -55,7 +62,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         // Setup any handles to view objects here
         // find RecyclerView
-        RecyclerView rvTweets = (RecyclerView) view.findViewById(R.id.rvTweets);
+        rvTweets = (RecyclerView) view.findViewById(R.id.rvTweets);
         // create ArrayList
         tweets = new ArrayList<>();
         // construct adapter from data source
@@ -75,6 +82,15 @@ public class HomeFragment extends Fragment {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
                 loadMoreTweets(page);
+            }
+        });
+
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ComposeActivity.class);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -112,5 +128,34 @@ public class HomeFragment extends Fragment {
                 Log.e("ERROR", "code: " + statusCode);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == resultCode) {
+            // for composing new tweets
+            String tweetBody = data.getStringExtra("tweet");
+            User tweetWrittenBy = Parcels.unwrap(data.getParcelableExtra("user"));
+            final Tweet newTweet = new Tweet();
+            newTweet.setBody(tweetBody);
+            newTweet.setUser(tweetWrittenBy);
+            tweets.add(0, newTweet);
+            tweetAdapter.notifyItemInserted(0);
+            rvTweets.smoothScrollToPosition(0);
+            client.composeNewTweet(tweetBody, new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
+                    int previousTweetIndex = tweets.indexOf(newTweet);
+                    tweets.set(previousTweetIndex, Tweet.fromJSON(json));
+                    tweetAdapter.notifyItemChanged(previousTweetIndex);
+
+                }
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.e("Error", "code: " + statusCode);
+                }
+            });
+        }
     }
 }

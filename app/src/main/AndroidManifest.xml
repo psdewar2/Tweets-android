@@ -40,14 +40,11 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activities.TimelineActivity"
-            android:label="Home" />
-        <activity android:name=".activities.ProfileActivity" />
+        <activity android:name=".activities.TweetsActivity" />
         <activity
             android:name=".activities.ComposeActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".activities.HomeActivity"></activity>
+
     </application>
 
 </manifest>

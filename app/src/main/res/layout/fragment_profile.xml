@@ -5,23 +5,26 @@
             name="user"
             type="com.psd.tweets.models.User"/>
     </data>
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context="com.psd.tweets.fragments.ProfileFragment">
 
         <com.psd.tweets.DynamicHeightImageView
             android:id="@+id/ivUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
             android:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tvUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
             tools:text="Hello"
-            android:layout_below="@id/ivUser"
             android:textColor="#000"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -30,70 +33,70 @@
             android:id="@+id/tvUserScreenName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@screenName"
-            android:layout_below="@id/tvUserName" />
+            android:paddingLeft="8dp"
+            tools:text="@screenName" />
 
         <TextView
             android:id="@+id/tvDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Description"
-            android:layout_below="@id/tvUserScreenName" />
+            android:paddingLeft="8dp"
+            tools:text="Description" />
 
-        <TextView
-            android:id="@+id/tvFollowingValue"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="52"
-            android:layout_below="@+id/tvDescription"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#000"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:paddingLeft="8dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvFollowingValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="52"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/tvFollowing"
+            <TextView
+                android:id="@+id/tvFollowing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/following"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_alignBaseline="@id/tvFollowingValue"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/tvFollowingValue" />
+
+            <TextView
+                android:id="@+id/tvFollowersValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="104"
+                android:layout_alignBaseline="@id/tvFollowingValue"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@id/tvFollowing"
+                android:textColor="#000"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tvFollowers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/followers"
+                android:clickable="true"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:layout_alignBaseline="@+id/tvFollowing"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/tvFollowersValue" />
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvUserTweets"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/following"
-            android:layout_alignBaseline="@id/tvFollowingValue"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@id/tvFollowingValue"
-            />
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
 
-        <TextView
-            android:id="@+id/tvFollowersValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="104"
-            android:layout_alignBaseline="@id/tvFollowingValue"
-            android:layout_marginLeft="8dp"
-            android:layout_toRightOf="@id/tvFollowing"
-            android:textColor="#000"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvFollowers"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/followers"
-            android:layout_alignTop="@+id/tvFollowing"
-            android:layout_marginLeft="4dp"
-            android:layout_toRightOf="@id/tvFollowersValue" />
-
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/rvUserTweets"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_below="@+id/tvFollowersValue"-->
-            <!--android:layout_alignParentLeft="true"-->
-            <!--android:layout_alignParentStart="true"-->
-            <!--android:layout_alignParentBottom="true"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_alignParentEnd="true">-->
-        <!--</android.support.v7.widget.RecyclerView>-->
-
-    </RelativeLayout>
+    </LinearLayout>
 </layout>

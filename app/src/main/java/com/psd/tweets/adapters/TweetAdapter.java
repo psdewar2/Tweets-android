@@ -1,7 +1,7 @@
 package com.psd.tweets.adapters;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -12,10 +12,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.psd.tweets.R;
-import com.psd.tweets.activities.ProfileActivity;
+import com.psd.tweets.activities.TweetsActivity;
+import com.psd.tweets.fragments.ProfileFragment;
 import com.psd.tweets.models.Tweet;
-
-import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -125,10 +124,11 @@ public class TweetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 tVH.profilePicture.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent i = new Intent(getContext(), ProfileActivity.class);
-                        i.putExtra("currentUser", false);
-                        i.putExtra("user", Parcels.wrap(tweet.getUser()));
-                        getContext().startActivity(i);
+                        FragmentTransaction ft = ((TweetsActivity) getContext()).getSupportFragmentManager().beginTransaction();
+                        // add to the contents of the container with the new fragment
+                        ft.replace(R.id.flContent, ProfileFragment.newInstance(tweet.getUser(), false));
+                        ft.commit();
+
                     }
                 });
                 break;

@@ -40,6 +40,7 @@
             android:layout_width="72dp"
             android:layout_height="36dp"
             android:text="@string/tweet"
+            android:textColor="#FFF"
             android:textAllCaps="false"
             android:clickable="true"
             android:background="@drawable/button_tweet" />
