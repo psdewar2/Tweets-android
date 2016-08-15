@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.psd.tweets.EndlessRecyclerViewScrollListener;
 import com.psd.tweets.R;
 import com.psd.tweets.TwitterApplication;
 import com.psd.tweets.TwitterClient;
@@ -86,6 +87,13 @@ public class ProfileFragment extends Fragment {
         client = TwitterApplication.getRestClient(); //singleton client
         populateTimeline();
 
+        binding.rvUserTweets.addOnScrollListener(new EndlessRecyclerViewScrollListener(llm) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                loadMoreTweets(page);
+            }
+        });
+
     }
 
     private void populateTimeline() {
@@ -120,5 +128,20 @@ public class ProfileFragment extends Fragment {
             });
         }
 
+    }
+
+    private void loadMoreTweets(int page) {
+        Log.d("DEBUG", "page " + page);
+        client.getUserTimeline(user.getScreenName(), page, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
+                userTweets.addAll(Tweet.fromJSONArray(json));
+                tweetAdapter.notifyItemRangeInserted(tweetAdapter.getItemCount(), userTweets.size() - 1);
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                Log.e("ERROR", "code: " + statusCode);
+            }
+        });
     }
 }
